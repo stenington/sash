@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<script src="./node_modules/png-js/zlib.js"></script>
+<script src="./node_modules/png-js/png.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.js"></script>
+<link href="flip.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+<h3>Baked badge display demo</h3>
+<p>
+ This is a <em>very early, extremely crappy</em> demo of a baked badge display drop-in javascript
+ file that could be included in a page with baked badge images to transform them into flip cards
+ with actual badge metadata on the back. Right now it's not drop-in-able <em>at all</em>, but this
+ page helps show the interaction to work out the kinks.
+</p>
+<p>
+  <strong>Instructions:</strong> mouse over the badge images below. Once the data loads, they should flip 
+  to show some metadata! If they're not flipping, check your browser console and let me know what went wrong. :(
+</p>
+
+<div class="badge flip-container" ontouchstart="this.classList.toggle('hover');">
+  <div class="flipper">
+    <div class="front">
+      <span class="valignHelper"></span><img src="baked.png" class="baked-image">
+    </div>
+    <div class="back">
+      <div class="metadata">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="badge flip-container" ontouchstart="this.classList.toggle('hover');">
+  <div class="flipper">
+    <div class="front">
+      <span class="valignHelper"></span><img src="hyperlinker.png" class="baked-image">
+    </div>
+    <div class="back">
+      <div class="metadata">
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="badgeData">
+  <p class="name"></p>
+  <p>Issued by <span class="orgName"></span> <span class="issueTime"></span>.
+</template>
+
+<script>
+  var badges = Array.prototype.slice.call(document.getElementsByClassName('badge'));
+  var t = document.querySelector('#badgeData');
+
+  badges.forEach(function(badge) {
+    var img = badge.getElementsByClassName('baked-image')[0];
+    var dataContainer = badge.getElementsByClassName('metadata')[0];
+    if (img.src.indexOf('.png') === -1)
+      return;
+    PNG.load(img.src, function(png){
+      var url = png.text.openbadges;
+      if (!url)
+        return;
+      $.post('http://validator.openbadges.org', {
+          assertion: url
+        },
+        function(data, status, xhr) {
+          console.log(data);
+          if (data.status !== 'valid')
+            return;
+          t.content.querySelector('.name').textContent = data.info.structures.badge.name;
+          t.content.querySelector('.orgName').textContent = data.info.structures.issuer.name;
+          t.content.querySelector('.issueTime').textContent = moment(data.info.structures.assertion.issuedOn).fromNow();
+          dataContainer.appendChild(t.content.cloneNode(true));
+          badge.classList.toggle('ready');
+        }, 
+        'json'
+      );
+    });
+  });
+</script>
