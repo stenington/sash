@@ -1,0 +1,23 @@
+<div class="badge flip-container" ontouchstart="javascript:this.classList.toggle('hover');">
+  <div class="flipper">
+    <div class="front">
+      <span class="valignHelper"></span><img src="{{ extra.badgeSrc }}" class="baked">
+    </div>
+    <div class="back">
+      <div class="metadata">
+        <p class="name">{{badge.name}}</p>
+        <p>Issued by 
+        <a class="orgName" href="{{issuer.url|default(issuer.origin)}}">{{issuer.name}}</a>{% if not extra.issuedAgo %}.{% else %} 
+          <span class="issueTime">{{extra.issuedAgo}}</span>.
+        {% endif %}
+        <p>{{badge.description}}</p>
+        <div class="footer">
+          {% if assertion.evidence %}
+            <a href="{{assertion.evidence}}" target="_blank" class="evidence">See the evidence...</a>
+          {% endif %}
+          <a href="{{badge.criteria}}" target="_blank" class="criteria">See the criteria...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

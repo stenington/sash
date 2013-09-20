@@ -1,0 +1,24 @@
+{
+  "name": "sash",
+  "version": "0.0.1",
+  "authors": [
+    "Mike Larsson <mikelarssonftw@gmail.com>"
+  ],
+  "description": "An Open Badge display prototype",
+  "main": "static/js/bundle.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nunjucks": "~0.1.10",
+    "momentjs": "~2.2.1",
+    "png-js": "https://github.com/devongovett/png.js.git#fbccb8b03e7200a2014362deb1a75edc58734cea",
+    "jquery": "~2.0.3"
+  }
+}

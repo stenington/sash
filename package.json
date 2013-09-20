@@ -1,0 +1,18 @@
+{
+  "name": "sash",
+  "version": "0.0.1",
+  "private": true,
+  "description": "An Open Badge display prototype",
+  "dependencies": {
+    "uglify-js": "~2.4.0",
+    "nunjucks": "~0.1.10",
+    "express": "~3.4.0",
+    "request": "~2.27.0",
+    "openbadges-bakery": "~0.2.6",
+    "openbadges-validator": "~0.1.0"
+  },
+  "scripts": {
+  },
+  "author": "Mike Larsson",
+  "readmeFilename": "README.md"
+}

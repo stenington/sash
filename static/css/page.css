@@ -1,0 +1,12 @@
+body {
+  font-family: Helvetica;
+  color: #333;
+  max-width: 800px;
+}
+
+noscript p {
+  border: solid 1px #A21111;
+  padding: 1em;
+  background: #FFDADD;
+}
+
