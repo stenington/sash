@@ -35,6 +35,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
+  overflow: hidden;
 }
 
 .badge .metadata .name {
@@ -75,7 +76,6 @@
 .flip-container .back {
   width: 280px;
   height: 280px;
-  overflow: hidden;
 }
 
 .flip-container .front,
